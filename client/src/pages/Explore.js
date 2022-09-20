@@ -15,7 +15,9 @@ const Explore = () => {
 
   const [Posts, setPosts] = useState([]);
   const [form, setForm] = useState("");
-  const [like, setLike] = useState("");
+  const [users, setUsers] = useState([]);
+
+  const [keyword, setKeyword] = useState("");
 
   const [refresh, setRefresh] = useState(false);
 
@@ -44,7 +46,6 @@ const Explore = () => {
       .get("/api/posts/")
       .then((resp) => {
         setPosts(resp.data);
-        console.log(resp.data);
       })
       .catch((error) => {
         console.log(error);
@@ -62,9 +63,54 @@ const Explore = () => {
       });
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (keyword === "") return setRefresh(!refresh);
+
+    axios
+      .get("/api/search/" + keyword)
+      .then((resp) => {
+        setUsers(resp.data);
+        console.log(resp.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="container">
       <div className="explorer">
+        <div className="searchBar">
+          <form onChange={handleSearch}>
+            <div className="form-group d-flex">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Paieškos frazė"
+                onChange={(e) => setKeyword(e.target.value)}
+                onBlur={(e) => {
+                  if (keyword === " ") setRefresh(!refresh);
+                }}
+              />
+            </div>
+          </form>
+          <div className="searchDropDown">
+            <ul>
+              {users.map((user) => (
+                <li key={user.id}>
+                  <Link to={"/profile/" + user.id}>
+                    <div className="searchBarImg">
+                      <img src={user.image} alt="" />
+                    </div>
+                    {user.user_name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
         <div className="newPostDiv">
           <button onClick={() => setOpenModal(true)}>Make a Post</button>
           <NewCommentM open={openModal} onClose={() => setOpenModal(false)} />

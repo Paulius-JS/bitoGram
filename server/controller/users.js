@@ -5,7 +5,27 @@ import { registerValidator, loginValidator } from "../middleware/validate.js";
 import { auth } from "../middleware/auth.js";
 import upload from "../middleware/multer.js";
 
+import { Op } from "sequelize";
+
 const router = express.Router();
+
+router.get("/search/:keyword", auth, async (req, res) => {
+  try {
+    const users = await db.Users.findAll({
+      where: {
+        user_name: {
+          [Op.like]: "%" + req.params.keyword + "%",
+        },
+      },
+
+      attributes: ["id", "user_name", "image"],
+    });
+    res.json(users);
+  } catch (error) {
+    console.log(error);
+    res.status(418).send("server error");
+  }
+});
 
 router.post("/register", registerValidator, async (req, res) => {
   try {
