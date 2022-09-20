@@ -11,24 +11,9 @@ const Header = () => {
     <header className="p-3 text-bg-dark">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a
-            href="/"
-            className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-          >
-            <img src={logo} alt="BitoGram" style={{ maxWidth: "40px" }} />
-            <div className="d-block ms-3 lh-1">
-              <h6 className="mb-0">
-                Bito<span className="LogoOrange">Gram</span>{" "}
-              </h6>
-              <span className="text-uppercase fs-7 fw-semibold">
-                Better than One.lt
-              </span>
-            </div>
-          </a>
-
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 ms-5 justify-content-center mb-md-0">
             <li>
-              <Link to="/" className="nav-link px-2 nav-link-active">
+              <Link to="/explore" className="nav-link px-2 nav-link-active">
                 Explore
               </Link>
             </li>
@@ -54,12 +39,7 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link to="/login" className="btn btn-warning">
-                  LogIn
-                </Link>
-                <Link to="/register" className="btn btn-warning">
-                  Register
-                </Link>
+                <p>Why are you here without loging in???</p>
               </>
             )}
           </div>

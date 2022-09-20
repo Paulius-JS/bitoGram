@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
-import Explore from "./pages/Explore";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+
+// Not Logged In
+import FirstPage from "./pages/FirstPage";
 import Logout from "./pages/Logout";
+
+//Logged In
+import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import UserPanel from "./pages/UserPanel";
 
+//Components
 import Header from "./components/Header/Header";
-import Alert from "./components/Alert/Alert";
+
 import MainContext from "./context/MainContext";
 import "./App.css";
 
@@ -31,12 +35,11 @@ const App = () => {
       <MainContext.Provider value={contextValues}>
         <Header />
         <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<FirstPage />} />
           {loggedIn && (
             <>
               <Route path="/logout" element={<Logout />} />
-              <Route path="/" element={<Explore />} />
+              <Route path="/explore" element={<Explore />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/user-panel" element={<UserPanel />} />
             </>

@@ -58,7 +58,6 @@
 .modalNewPost {
   margin: 5rem auto;
 
-  background-color: red;
   display: flex;
   flex-direction: column;
 }

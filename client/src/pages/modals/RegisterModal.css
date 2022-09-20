@@ -1,0 +1,49 @@
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalRegister {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: #cbcbcb solid 1px;
+  display: flex;
+  width: 20rem;
+  height: 30rem;
+  background-color: #ffffff;
+  border-radius: 9px;
+  -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 5px #000000;
+  overflow: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.registerHeader {
+  margin: 0 auto;
+  font-size: large;
+  font-weight: bold;
+}
+
+.modal-contentRegister {
+  align-items: center;
+}
+
+.modal-contentRegister > form {
+  text-align: center;
+}

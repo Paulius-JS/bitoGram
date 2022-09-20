@@ -1,0 +1,141 @@
+/* logo place */
+.logoSpot {
+  margin: 0 auto;
+  width: 50%;
+}
+
+/* logo size */
+.logoSpot img {
+  margin-top: 4rem;
+  margin-left: 90px;
+  width: 70%;
+}
+
+/* Main window */
+.mainLoginWindow {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 20px;
+  width: 35rem;
+  -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 5px #000000;
+}
+/* Login side */
+.loginWindow {
+  width: 50%;
+  height: 14rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 9px;
+}
+.loginWindow > form {
+  text-align: center;
+}
+
+.loginWindow > form > input {
+  margin-top: 1rem;
+
+  height: 2rem;
+  border: 1px solid grey;
+  border-radius: 3px;
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.loginWindow > form > button,
+.modal-contentRegister > form > button {
+  outline: 0;
+  grid-gap: 8px;
+  align-items: center;
+  background-color: #ffffff;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: bold;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 8px 12px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all 0.14s ease-out;
+  white-space: nowrap;
+}
+.loginWindow > form > button:hover,
+.modal-contentRegister > form > button:hover {
+  background-color: #ff6c00;
+  box-shadow: 4px 4px 0 #000;
+  transform: translate(-4px, -4px);
+}
+
+.loginWindow
+  > form
+  > button:focus-visible
+  .modal-contentRegister
+  > form
+  > button:focus-visible {
+  outline-offset: 1px;
+}
+
+/* Register side */
+.mainNotRegister {
+  width: 50%;
+  height: 14rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  border-radius: 9px;
+}
+
+.mainNotRegister > p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.mainNotRegister > button {
+  outline: 0;
+  grid-gap: 8px;
+  align-items: center;
+  background-color: #ffffff;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: bold;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 8px 12px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all 0.14s ease-out;
+  white-space: nowrap;
+}
+.mainNotRegister > button:hover {
+  background-color: #ff6c00;
+  box-shadow: 4px 4px 0 #000;
+  transform: translate(-4px, -4px);
+}
+
+.mainNotRegister > button:focus-visible {
+  outline-offset: 1px;
+}
