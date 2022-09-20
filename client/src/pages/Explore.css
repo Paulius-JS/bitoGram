@@ -1,0 +1,70 @@
+.explorer {
+  width: 35%;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 9px;
+  margin: 5px;
+  max-width: 25rem;
+}
+
+.userInfo {
+}
+
+.userInfo img {
+  margin: 4px;
+  max-width: 50px;
+  border-radius: 50%;
+}
+.userName {
+  margin-left: 25px;
+  font-weight: bold;
+}
+
+.userName a {
+  color: black;
+  text-decoration: none;
+}
+
+.postContent {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 250px;
+}
+
+.postContent img {
+  margin: 0 auto;
+  max-width: 15rem;
+  border-radius: 9px 9px 0 0;
+}
+
+.userPost {
+  text-align: center;
+}
+
+.comments {
+}
+
+.comment {
+  margin-bottom: 0.2rem;
+  min-height: 25px;
+  background-color: grey;
+  border-radius: 25px;
+  min-height: 2rem;
+}
+
+.userInfoComment img {
+  margin: 0px 0px 0px 15px;
+  max-width: 25px;
+  border-radius: 50%;
+}
+
+.userComment {
+  margin-left: 0.8rem;
+}

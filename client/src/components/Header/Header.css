@@ -1,0 +1,44 @@
+.nav-link {
+  position: relative;
+  color: white;
+  transition: all 0.5s ease-in-out;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: white;
+  transition: all 0.5s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.LogoOrange {
+  color: rgb(33, 37, 41);
+  border-radius: 5px;
+  background-color: orange;
+}
+
+.nav a:hover {
+  color: orange;
+}
+
+.userImageHeader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.userImageHeader img {
+  border: 2px solid yellow;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}

@@ -1,0 +1,30 @@
+.singleUserName {
+  margin: 0 auto;
+
+  font-size: 32px;
+  font-weight: bold;
+  width: 11rem;
+}
+
+.userPosts {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.singleUserPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 10px;
+  border: 2px solid black;
+  border-radius: 9px;
+}
+
+.singleUserPost img {
+  width: 10rem;
+  border-radius: 9px;
+  /* min-height: 5rem; */
+}
