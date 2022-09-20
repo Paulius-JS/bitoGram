@@ -33,6 +33,10 @@ router.get("/", async (req, res) => {
           model: db.Comments,
           include: db.Users,
         },
+        {
+          model: db.Likes,
+          include: db.Users,
+        },
       ],
     });
 

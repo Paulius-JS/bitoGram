@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import mysql from "mysql2/promise";
-import { Users, Posts, Comments } from "../model/index.js";
+import { Users, Posts, Comments, Likes } from "../model/index.js";
 
 const database = {};
 const credentials = {
@@ -31,6 +31,7 @@ try {
   database.Users = Users(sequelize);
   database.Posts = Posts(sequelize);
   database.Comments = Comments(sequelize);
+  database.Likes = Likes(sequelize);
 
   // database.Posts.hasOne(database.Users);
   // database.Users.hasMany(database.Posts);
@@ -43,6 +44,10 @@ try {
 
   database.Posts.hasMany(database.Comments);
   database.Comments.belongsTo(database.Posts);
+
+  database.Posts.hasMany(database.Likes);
+  database.Likes.belongsTo(database.Posts);
+  database.Likes.belongsTo(database.Users);
 
   await sequelize.sync({ alter: true });
 } catch (error) {

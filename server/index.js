@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import session from "express-session";
-import { Users, Posts, Comments, Profiles } from "./controller/index.js";
+import { Users, Posts, Comments, Profiles, Likes } from "./controller/index.js";
 
 const app = express();
 
@@ -31,5 +31,6 @@ app.use("/api/", Users);
 app.use("/api/posts/", Posts);
 app.use("/api/comments/", Comments);
 app.use("/api/profile/", Profiles);
+app.use("/api/likes/", Likes);
 
 app.listen(3000);
