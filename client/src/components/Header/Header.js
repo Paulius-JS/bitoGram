@@ -40,7 +40,7 @@ const Header = () => {
       </div>
       <div className="mainMenu">
         <div className="newPost">
-          <button class="button-53" onClick={() => setOpenModal(true)}>
+          <button className="button-53" onClick={() => setOpenModal(true)}>
             New Post
           </button>
           <NewCommentM open={openModal} onClose={() => setOpenModal(false)} />

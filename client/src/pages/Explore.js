@@ -10,11 +10,9 @@ import Hearth2 from "../resources/hearth2.svg";
 const Explore = () => {
   const { setAlert } = useContext(MainContext);
 
-  //   const [openModal, setOpenModal] = useState(false);
-
   const [Posts, setPosts] = useState([]);
   const [form, setForm] = useState("");
-  // const [users, setUsers] = useState([]);
+
   // const [liked, setLiked] = useState(false);
 
   const [refresh, setRefresh] = useState(false);
@@ -40,6 +38,7 @@ const Explore = () => {
       .get("/api/posts/")
       .then((resp) => {
         setPosts(resp.data);
+        console.log(resp.data);
       })
       .catch((error) => {
         console.log(error);
@@ -75,7 +74,6 @@ const Explore = () => {
               >
                 {post.user.user_name}
               </Link>
-              {/* Later add time then  */}
             </div>
 
             <div className="intagram-card-image">
@@ -109,8 +107,8 @@ const Explore = () => {
                 </Link>{" "}
                 {post.text}
               </p>
-              {/* Add all coment count to under this comment */}
-              {/* <p className="comments">Will Show all coment count 9999</p> */}
+              <p className="comments">{post.comments.length} Comments.</p>
+
               {post.comments &&
                 post.comments.map((comment) => (
                   <div key={comment.id} className="userCommentsDiv">
