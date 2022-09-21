@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import MainContext from "../context/MainContext";
 
-import { NewCommentM } from "./modals/NewCommentM";
-
 import "./Explore.css";
+import Hearth1 from "../resources/hearth1.svg";
+import Hearth2 from "../resources/hearth2.svg";
 
 const Explore = () => {
   const { setAlert } = useContext(MainContext);
 
-  const [openModal, setOpenModal] = useState(false);
+  //   const [openModal, setOpenModal] = useState(false);
 
   const [Posts, setPosts] = useState([]);
   const [form, setForm] = useState("");
   const [users, setUsers] = useState([]);
-
-  const [keyword, setKeyword] = useState("");
+  const [liked, setLiked] = useState(false);
 
   const [refresh, setRefresh] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,8 +36,6 @@ const Explore = () => {
 
     axios.post("/api/comments/new", form).then((resp) => {
       setRefresh(!refresh);
-
-      navigate("/");
     });
   };
 
@@ -62,109 +60,110 @@ const Explore = () => {
         console.log(error);
       });
   };
+  // ///////////////////////////////////////////////////////////////
+  //   const handleSearch = (e) => {
+  //     e.preventDefault();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  //     if (e.target.value === "") return setShowResults(false);
 
-    if (keyword === "") return setRefresh(!refresh);
-
-    axios
-      .get("/api/search/" + keyword)
-      .then((resp) => {
-        setUsers(resp.data);
-        console.log(resp.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+  //     axios
+  //       .get("/api/search/" + e.target.value)
+  //       .then((resp) => {
+  //         setUsers(resp.data);
+  //         setShowResults(true);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+  // /////////////////////////////////////////////////////////////////
   return (
-    <div className="container">
-      <div className="explorer">
-        <div className="searchBar">
-          <form onChange={handleSearch}>
-            <div className="form-group d-flex">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Paieškos frazė"
-                onChange={(e) => setKeyword(e.target.value)}
-                onBlur={(e) => {
-                  if (keyword === " ") setRefresh(!refresh);
-                }}
-              />
-            </div>
-          </form>
-          <div className="searchDropDown">
-            <ul>
-              {users.map((user) => (
-                <li key={user.id}>
-                  <Link to={"/profile/" + user.id}>
-                    <div className="searchBarImg">
-                      <img src={user.image} alt="" />
-                    </div>
-                    {user.user_name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="newPostDiv">
-          <button onClick={() => setOpenModal(true)}>Make a Post</button>
-          <NewCommentM open={openModal} onClose={() => setOpenModal(false)} />
-        </div>
+    <>
+      <div className="explore">
         {Posts.map((post) => (
-          <div className="post" key={post.id}>
-            <div className="userInfo">
-              <img src={post.user.image} alt="" />
-              <span className="userName">
-                <Link to={`/profile/${post.userId}`}>
+          <div key={post.id} className="instagram-card">
+            <div className="instagram-card-header">
+              <img
+                src={post.user.image}
+                className="instagram-card-user-image"
+              />
+
+              <Link
+                className="instagram-card-user-name"
+                to={`/profile/${post.userId}`}
+              >
+                {post.user.user_name}
+              </Link>
+              {/* Later add time then  */}
+            </div>
+
+            <div className="intagram-card-image">
+              <img src={post.image} />
+            </div>
+
+            <div className="instagram-card-content">
+              <div className="likes">
+                {/* ///////////////////////// */}
+                <img
+                  src={Hearth1}
+                  alt="Beauty Parlor"
+                  style={{ maxWidth: "25px" }}
+                />
+                <img
+                  src={Hearth2}
+                  alt="Beauty Parlor"
+                  style={{ maxWidth: "40px" }}
+                />
+                {/* ////////////////////////////// */}
+                {post.likes.length} likes
+                <button onClick={() => handleLike(post.id)}>Like</button>
+                {/* <button onClick={() => handleLike(post.id)}>Like</button> */}
+              </div>
+              <p>
+                <Link
+                  className="instagram-card-user-name"
+                  to={`/profile/${post.userId}`}
+                >
                   {post.user.user_name}
-                </Link>
-              </span>
-            </div>
-            <div className="postContent">
-              <img src={post.image} alt="post" />
-              <span className="userPost">{post.text}</span>
-            </div>
-            <div className="postLikes">
-              {post.likes.length} likes
-              <button onClick={() => handleLike(post.id)}>Like</button>
-            </div>
-            <hr />
-            <div className="comments">
+                </Link>{" "}
+                {post.text}
+              </p>
+              {/* Add all coment count to under this comment */}
+              {/* <p className="comments">Will Show all coment count 9999</p> */}
               {post.comments &&
                 post.comments.map((comment) => (
-                  <div className="comment" key={comment.id}>
-                    <div className="userInfoComment">
-                      <img src={comment.user.image} alt="" />
-                      <span className="userName">{comment.user.user_name}</span>
-                    </div>
-                    <div className="commentContent">
-                      <span className="userComment">{comment.text}</span>
-                    </div>
+                  <div key={comment.id} className="userCommentsDiv">
+                    <Link
+                      className="user-comment"
+                      to={`/profile/${comment.user.id}`}
+                    >
+                      {comment.user.user_name}
+                    </Link>
+
+                    <p>{comment.text} </p>
+                    <p></p>
                   </div>
                 ))}
+            </div>
+
+            <div className="instagram-card-footer">
               <form
-                className="form-inline d-flex"
+                className="comments-input"
                 onSubmit={(e) => handleSubmit(e, post.id)}
               >
                 <input
                   type="text"
-                  className="form-control mb-2 mr-sm-2"
                   name="text"
                   onChange={handleForm}
-                  placeholder="leave comment....."
+                  placeholder="Add a comment..."
                 />
-                <button className="btn btn btn-dark mb-2">Comment</button>
+                <button>Post</button>
               </form>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 export default Explore;

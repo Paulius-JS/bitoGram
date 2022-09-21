@@ -1,113 +1,119 @@
-.explorer {
-  width: 35%;
+.explore {
+  width: 30%;
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 5rem;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 0.1rem;
 }
 
-.post {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid black;
-  border-radius: 9px;
-  margin: 5px;
-  max-width: 25rem;
-}
-
-.userInfo img {
-  margin: 4px;
-  max-width: 50px;
-  border-radius: 50%;
-}
-.userName {
-  margin-left: 25px;
-  font-weight: bold;
-}
-
-.userName a {
-  color: black;
+a {
   text-decoration: none;
 }
 
-.postContent {
-  display: flex;
-  flex-direction: column;
-
-  min-width: 250px;
+a:hover {
+  color: #ff6c00;
+  text-decoration: underline;
 }
 
-.postContent img {
-  margin: 0 auto;
-  max-width: 15rem;
-  border-radius: 9px 9px 0 0;
+.instagram-card {
+  background: #ffffff;
+  border: 1px solid #cac5c5;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  margin: 25px auto;
 }
 
-.userPost {
-  text-align: center;
-}
-
-.comment {
-  margin-bottom: 0.2rem;
-  min-height: 25px;
-  background-color: grey;
-  border-radius: 25px;
-  min-height: 2rem;
-}
-
-.userInfoComment img {
-  margin: 0px 0px 0px 15px;
-  max-width: 25px;
-  border-radius: 50%;
-}
-
-.userComment {
-  margin-left: 0.8rem;
-}
-
-/* ////////// */
-/* Search BAR */
-
-.searchDropDown {
-  z-index: 2;
-  position: absolute;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  width: 24%;
-  -webkit-box-shadow: 0px 18px 15px 5px #000000;
-  box-shadow: 0px 18px 15px 5px #000000;
-  border-radius: 0px 0px 9px 9px;
-}
-
-.searchBarImg img {
-  border-radius: 50%;
-  width: 40px;
+.instagram-card-header {
+  padding: 20px;
   height: 40px;
 }
 
-.searchDropDown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.instagram-card-user-image {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
 }
 
-.searchDropDown li {
+.intagram-card-image img {
+  margin-top: 2rem;
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+}
+
+.instagram-card-user-name {
+  margin-left: 5px;
+  font-weight: bold;
+  color: #262626;
+}
+
+.instagram-card-content {
+  padding: 20px;
+}
+
+.likes {
+  font-weight: bold;
+}
+
+.instagram-card-content-user {
+  font-weight: bold;
+  color: #262626;
+}
+
+.comments {
+  color: #999;
+}
+.userCommentsDiv {
   display: flex;
   flex-direction: row;
-  list-style: none;
-  padding: 0.5rem;
+  width: 100%;
 }
 
-.searchDropDown li a {
+.user-comment {
+  margin-right: 8px;
+  color: black;
+  font-weight: bold;
+}
+
+.instagram-card-footer {
   display: flex;
-  gap: 2px;
-}
-.searchDropDown a {
-  text-decoration: none;
-  color: black;
+  align-items: center;
 }
 
-.searchDropDown a:hover {
-  text-decoration: none;
-  color: black;
+hr {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+.comments-input {
+  border: none;
+  margin-left: 10px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.comments-input > input {
+  border: 0;
+  outline: none;
+  width: 90%;
+}
+
+.comments-input > input:focus {
+  border: 0;
+  outline: none;
+}
+
+.comments-input button {
+  border: 0;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  color: #ff6c00;
   font-weight: bold;
 }

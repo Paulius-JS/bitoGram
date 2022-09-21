@@ -18,6 +18,10 @@ const Users = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    bio: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     role: {
       type: DataTypes.INTEGER,
       allowNull: false,

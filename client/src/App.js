@@ -4,12 +4,12 @@ import axios from "axios";
 
 // Not Logged In
 import FirstPage from "./pages/FirstPage";
-import Logout from "./pages/Logout";
 
 //Logged In
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import UserPanel from "./pages/UserPanel";
+import Logout from "./pages/Logout";
 
 //Components
 import Header from "./components/Header/Header";
@@ -29,11 +29,11 @@ const App = () => {
       setUserInfo(resp.data);
     });
   }, []);
-
   return (
     <BrowserRouter>
       <MainContext.Provider value={contextValues}>
-        <Header />
+        {loggedIn && <Header />}
+
         <Routes>
           <Route path="/" element={<FirstPage />} />
           {loggedIn && (
@@ -44,6 +44,7 @@ const App = () => {
               <Route path="/user-panel" element={<UserPanel />} />
             </>
           )}
+          <Route path="*" element={<FirstPage />} />
         </Routes>
       </MainContext.Provider>
     </BrowserRouter>

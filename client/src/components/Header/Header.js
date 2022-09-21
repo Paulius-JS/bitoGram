@@ -1,51 +1,99 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import MainContext from "../../context/MainContext";
-import logo from "./Logo.svg";
+import logo from "../../resources/BitoGramLogo.png";
+import axios from "axios";
 import "./Header.css";
 
 const Header = () => {
   const { loggedIn, userInfo } = useContext(MainContext);
 
+  const [showResults, setShowResults] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (e.target.value === "") return setShowResults(false);
+
+    axios
+      .get("/api/search/" + e.target.value)
+      .then((resp) => {
+        setUsers(resp.data);
+        setShowResults(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
-    <header className="p-3 text-bg-dark">
-      <div className="container">
-        <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 ms-5 justify-content-center mb-md-0">
-            <li>
-              <Link to="/explore" className="nav-link px-2 nav-link-active">
-                Explore
-              </Link>
-            </li>
-          </ul>
-
-          <div className="text-end">
-            {loggedIn ? (
-              <>
-                <Link
-                  to={"/profile/" + userInfo.id}
-                  className="userImageHeader"
-                >
-                  <img src={userInfo.image} alt="" />
-
-                  {userInfo.user_name}
-                </Link>
-                <Link to={"/user-panel"} className="btn btn-warning">
-                  User Panel
-                </Link>
-                <Link to="/logout" className="btn btn-warning">
-                  logOut
-                </Link>
-              </>
-            ) : (
-              <>
-                <p>Why are you here without loging in???</p>
-              </>
-            )}
-          </div>
-        </div>
+    <div className="header">
+      <div className="leftHeader">
+        <Link to="/explore">
+          <img src={logo} alt="Logo" />
+        </Link>
       </div>
-    </header>
+      <div className="mainMenu">
+        <div className="searchBar">
+          <div className="form-group d-flex">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Paieškos frazė"
+              onChange={(e) => handleSearch(e)}
+              onBlur={(e) => {
+                if (e.target.value === "") setShowResults(false);
+              }}
+            />
+          </div>
+          {showResults && (
+            <div className="searchDropDown">
+              <ul>
+                {users.map((user) => (
+                  <li key={user.id}>
+                    <Link to={"/profile/" + user.id}>
+                      <div className="searchBarImg">
+                        <img src={user.image} alt="" />
+                      </div>
+                      {user.user_name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        <ul>
+          <li>
+            <Link to="/explore">Explore</Link>
+          </li>
+          <li>
+            <Link to="/fortest">For You</Link>
+          </li>
+        </ul>
+      </div>
+      <div className="rightHeader">
+        {loggedIn ? (
+          <>
+            <div className="dropdown">
+              <div className="dropbtn">
+                <img src={userInfo.image} alt="" />
+                {userInfo.user_name}
+              </div>
+              <div className="dropdown-content">
+                <Link to={"/user-panel"}>User Panel</Link>
+                <Link to="/logout">log out</Link>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <p>Are you sure u are logged?</p>
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 
