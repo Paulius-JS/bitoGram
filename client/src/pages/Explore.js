@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MainContext from "../context/MainContext";
@@ -15,13 +14,10 @@ const Explore = () => {
 
   const [Posts, setPosts] = useState([]);
   const [form, setForm] = useState("");
-  const [users, setUsers] = useState([]);
-  const [liked, setLiked] = useState(false);
+  // const [users, setUsers] = useState([]);
+  // const [liked, setLiked] = useState(false);
 
   const [refresh, setRefresh] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleForm = (e) => {
     setForm({
@@ -60,23 +56,7 @@ const Explore = () => {
         console.log(error);
       });
   };
-  // ///////////////////////////////////////////////////////////////
-  //   const handleSearch = (e) => {
-  //     e.preventDefault();
 
-  //     if (e.target.value === "") return setShowResults(false);
-
-  //     axios
-  //       .get("/api/search/" + e.target.value)
-  //       .then((resp) => {
-  //         setUsers(resp.data);
-  //         setShowResults(true);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-  // /////////////////////////////////////////////////////////////////
   return (
     <>
       <div className="explore">
@@ -85,6 +65,7 @@ const Explore = () => {
             <div className="instagram-card-header">
               <img
                 src={post.user.image}
+                alt={post.user.image}
                 className="instagram-card-user-image"
               />
 
@@ -98,7 +79,7 @@ const Explore = () => {
             </div>
 
             <div className="intagram-card-image">
-              <img src={post.image} />
+              <img src={post.image} alt={post.image} />
             </div>
 
             <div className="instagram-card-content">

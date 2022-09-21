@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import MainContext from "../../context/MainContext";
 import logo from "../../resources/BitoGramLogo.png";
 import axios from "axios";
 import "./Header.css";
+
+import { NewCommentM } from "../../pages/modals/NewCommentM";
 
 const Header = () => {
   const { loggedIn, userInfo } = useContext(MainContext);
 
   const [showResults, setShowResults] = useState(false);
   const [users, setUsers] = useState([]);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -35,12 +39,19 @@ const Header = () => {
         </Link>
       </div>
       <div className="mainMenu">
+        <div className="newPost">
+          <button class="button-53" onClick={() => setOpenModal(true)}>
+            New Post
+          </button>
+          <NewCommentM open={openModal} onClose={() => setOpenModal(false)} />
+        </div>
+
         <div className="searchBar">
           <div className="form-group d-flex">
             <input
               type="text"
               className="form-control"
-              placeholder="Paieškos frazė"
+              placeholder="Search for user..."
               onChange={(e) => handleSearch(e)}
               onBlur={(e) => {
                 if (e.target.value === "") setShowResults(false);
