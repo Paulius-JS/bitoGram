@@ -5,6 +5,7 @@ import "./NewCommentM.css";
 
 export const NewCommentM = ({ open, onClose }) => {
   const [NewPost, setNewPost] = useState({});
+  const [prevImg, setPrevImg] = useState(null);
 
   const handleForm = (e) => {
     setNewPost({
@@ -12,6 +13,7 @@ export const NewCommentM = ({ open, onClose }) => {
       [e.target.name]:
         e.target.name === "image" ? e.target.files[0] : e.target.value,
     });
+    setPrevImg(URL.createObjectURL(e.target.files[0]));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,35 +28,33 @@ export const NewCommentM = ({ open, onClose }) => {
       onClose();
     });
   };
+
   if (!open) return null;
   return (
     <>
       <div className="modal-wrapper">
         <div className="modal">
-          <div className="modal-header">
-            <span className="newPostText">New Post</span>
-            <span className="close-modal-btn" onClick={onClose}>
-              X
-            </span>
-          </div>
-          <div className="modalNewPost">
-            <form className="form-group " onSubmit={(e) => handleSubmit(e)}>
-              <input
-                type="file"
-                className="form-control mb-2 mr-sm-2"
-                name="image"
-                onChange={handleForm}
-              />
+          <span className="close-modal-btn" onClick={onClose}>
+            X
+          </span>
+
+          <div className="newPostModal">
+            <div className="newPostShowUploadedImg">
+              {prevImg && <img src={prevImg} alt="uploaded" />}
+            </div>
+
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <input type="file" name="image" onChange={handleForm} />
               <textarea
                 name="text"
                 id=""
                 cols="30"
-                rows="10"
+                rows="7"
                 onChange={handleForm}
-                placeholder="leave comment....."
+                placeholder="Describe your post"
               ></textarea>
               <hr />
-              <button className="btn btn btn-dark mb-2">Make New Post</button>
+              <button className="button-53">Make New Post</button>
             </form>
           </div>
         </div>

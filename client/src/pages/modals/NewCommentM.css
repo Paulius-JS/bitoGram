@@ -38,26 +38,47 @@
   background: none;
 }
 
-.newPostText {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0.2rem;
-  font-size: 2rem;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-.modal-content {
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-}
-
-.modalNewPost {
-  margin: 5rem auto;
+.newPostModal {
+  margin: 0 auto;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 2rem;
+  margin-top: 5rem;
+  width: 80%;
+  height: 80%;
+}
+
+.newPostShowUploadedImg {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  border-radius: 9px;
+  height: 20rem;
+  width: 20rem;
+  -webkit-box-shadow: 3px 6px 15px 5px rgba(0, 0, 0, 0.17);
+  box-shadow: 3px 6px 15px 5px rgba(0, 0, 0, 0.17);
+}
+
+.newPostShowUploadedImg img {
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+/* New Post Form */
+
+.newPostModal form {
+  margin-left: 1rem;
+  margin-top: 2.4rem;
+}
+
+.newPostModal form textarea {
+  margin-top: 1rem;
+  resize: none;
+  border-radius: 9px;
+}
+
+.newPostModal form textarea:focus {
+  outline: none;
 }

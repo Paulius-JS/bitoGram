@@ -89,7 +89,7 @@ const Header = () => {
             <div className="dropdown">
               <div className="dropbtn">
                 <img src={userInfo.image} alt="" />
-                {userInfo.user_name}
+                <p>{userInfo.user_name}</p>
               </div>
               <div className="dropdown-content">
                 <Link to={"/user-panel"}>User Panel</Link>

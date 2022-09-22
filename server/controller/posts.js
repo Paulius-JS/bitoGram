@@ -20,6 +20,27 @@ router.post("/new", auth, upload.single("image"), async (req, res) => {
   }
 });
 
+router.get("/single/:id", async (req, res) => {
+  try {
+    const posts = await db.Posts.findOne({
+      order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: db.Comments,
+        },
+        {
+          model: db.Likes,
+        },
+      ],
+    });
+
+    res.json(posts);
+  } catch (error) {
+    console.log(error);
+    res.status(418).send("server error");
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const posts = await db.Posts.findAll({
