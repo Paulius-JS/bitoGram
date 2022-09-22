@@ -33,19 +33,23 @@ try {
   database.Comments = Comments(sequelize);
   database.Likes = Likes(sequelize);
 
-  // database.Posts.hasOne(database.Users);
-  // database.Users.hasMany(database.Posts);
-
   database.Users.hasMany(database.Posts);
   database.Posts.belongsTo(database.Users);
 
   database.Users.hasMany(database.Comments);
   database.Comments.belongsTo(database.Users);
 
-  database.Posts.hasMany(database.Comments);
+  database.Posts.hasMany(database.Comments, {
+    onDelete: "CASCADE",
+    hooks: true,
+  });
+
   database.Comments.belongsTo(database.Posts);
 
-  database.Posts.hasMany(database.Likes);
+  database.Posts.hasMany(database.Likes, {
+    onDelete: "CASCADE",
+    hooks: true,
+  });
   database.Likes.belongsTo(database.Posts);
   database.Likes.belongsTo(database.Users);
 

@@ -17,9 +17,7 @@ const Header = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-
     if (e.target.value === "") return setShowResults(false);
-
     axios
       .get("/api/search/" + e.target.value)
       .then((resp) => {

@@ -1,10 +1,7 @@
 import express from "express";
 
-import cors from "cors";
 import { auth } from "../middleware/auth.js";
 import db from "../database/connect.js";
-
-// import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -20,7 +17,7 @@ router.post("/new", auth, async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const comments = await db.Comments.findAll({
       include: {
@@ -35,7 +32,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   try {
     const comment = await db.Comments.update(req.body, {
       where: {

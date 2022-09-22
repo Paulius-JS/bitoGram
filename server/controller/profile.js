@@ -2,8 +2,6 @@ import express from "express";
 import db from "../database/connect.js";
 import { auth } from "../middleware/auth.js";
 
-// import { registerValidator, loginValidator } from "../middleware/validate.js";
-
 const router = express.Router();
 
 router.get("/:id", auth, async (req, res) => {
@@ -12,7 +10,9 @@ router.get("/:id", auth, async (req, res) => {
       attributes: ["id", "user_name", "bio", "image"],
       include: {
         model: db.Posts,
-        attributes: ["id", "text", "image"],
+        // Ordering is not working for now....
+        order: [["createdAt", "DESC"]],
+        attributes: ["id", "text", "image", "createdAt"],
         include: [db.Comments, db.Likes],
       },
     });

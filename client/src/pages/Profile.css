@@ -26,6 +26,8 @@
 .userInfo p {
   width: 15rem;
   height: 14rem;
+  word-break: break-all;
+  white-space: normal;
 }
 
 /* PROFILE POSTS */

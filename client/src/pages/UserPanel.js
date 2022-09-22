@@ -10,7 +10,6 @@ const UserPanel = () => {
   useEffect(() => {
     axios.get(`/api/user-panel`).then((resp) => {
       setProfile(resp.data);
-      console.log(resp.data);
     });
   }, [refresh]);
 

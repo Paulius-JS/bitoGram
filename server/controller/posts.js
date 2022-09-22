@@ -2,7 +2,6 @@ import express from "express";
 import db from "../database/connect.js";
 import { auth } from "../middleware/auth.js";
 import upload from "../middleware/multer.js";
-// import { registerValidator, loginValidator } from "../middleware/validate.js";
 
 const router = express.Router();
 
@@ -13,35 +12,40 @@ router.post("/new", auth, upload.single("image"), async (req, res) => {
 
     await db.Posts.create(req.body);
 
-    res.send("Įrašas sėkmingai sukurtas");
+    res.send("Post created");
   } catch (error) {
     console.log(error);
     res.status(418).send("server error");
   }
 });
 
-router.get("/single/:id", async (req, res) => {
+router.get("/single/:id", auth, async (req, res) => {
   try {
-    const posts = await db.Posts.findOne({
-      order: [["createdAt", "DESC"]],
+    const post = await db.Posts.findByPk(req.params.id, {
       include: [
         {
+          model: db.Users,
+          attributes: ["id", "user_name", "image"],
+        },
+        {
           model: db.Comments,
+          include: db.Users,
         },
         {
           model: db.Likes,
+          include: db.Users,
         },
       ],
     });
 
-    res.json(posts);
+    res.json(post);
   } catch (error) {
     console.log(error);
     res.status(418).send("server error");
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const posts = await db.Posts.findAll({
       order: [["createdAt", "DESC"]],
@@ -62,20 +66,6 @@ router.get("/", async (req, res) => {
     });
 
     res.json(posts);
-  } catch (error) {
-    console.log(error);
-    res.status(418).send("server error");
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    const post = await db.Posts.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.json(post);
   } catch (error) {
     console.log(error);
     res.status(418).send("server error");

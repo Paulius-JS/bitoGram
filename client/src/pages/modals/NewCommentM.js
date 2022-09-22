@@ -29,6 +29,7 @@ export const NewCommentM = ({ open, onClose }) => {
 
     axios.post("/api/posts/new", formData).then((resp) => {
       setRefresh((prev) => !prev);
+      window.scrollTo(0, 0);
       onClose();
     });
   };

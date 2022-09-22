@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MainContext from "../context/MainContext";
@@ -6,11 +6,21 @@ import MainContext from "../context/MainContext";
 import "./Explore.css";
 import Hearth1 from "../resources/hearth1.svg";
 import Hearth2 from "../resources/hearth2.svg";
+import { SinglePostModal } from "./modals/SinglePostModal";
 
 const Explore = () => {
   const { userInfo } = useContext(MainContext);
 
   const { setRefresh, refresh } = useContext(MainContext);
+  const [openModal, setOpenModal] = useState(false);
+
+  const toggleModal = useCallback(
+    (id) => () => {
+      setOpenModal(!openModal);
+      console.log("post id:", id);
+    },
+    []
+  );
 
   const [Posts, setPosts] = useState([]);
   const [form, setForm] = useState("");
@@ -59,24 +69,53 @@ const Explore = () => {
         {Posts.map((post) => (
           <div key={post.id} className="instagram-card">
             <div className="instagram-card-header">
-              <img
-                src={post.user.image}
-                alt={post.user.image}
-                className="instagram-card-user-image"
-              />
-
               <Link
                 className="instagram-card-user-name"
                 to={`/profile/${post.userId}`}
               >
+                <img
+                  src={post.user.image}
+                  alt={post.user.image}
+                  className="instagram-card-user-image"
+                />
+
                 {post.user.user_name}
               </Link>
-            </div>
+              <p className="comments">
+                {/* show date lt-Lt no seconds */}
 
-            <div className="intagram-card-image">
+                {new Date(post.createdAt).toLocaleString("lt-LT", {
+                  timeZone: "Europe/Vilnius",
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
+            </div>
+            {/* MODAL SPOTAS */}
+            {/* /* EXAMPLE */}
+
+            {/* <div >
+              <button  onClick={() => setOpenModal(true)}>
+                New Post
+              </button>
+              ////////////////////////////////
+              <SinglePostModal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+              />
+            </div> */}
+
+            <div className="intagram-card-image" onClick={toggleModal(post.id)}>
               <img src={post.image} alt={post.image} />
+              <SinglePostModal
+                Open={openModal}
+                onClose={toggleModal(post.id)}
+              />
             </div>
-
+            {/* END */}
             <div className="instagram-card-content">
               <div className="likes">
                 {post.likes.length} love this
@@ -98,23 +137,31 @@ const Explore = () => {
                 {post.text}
               </p>
               <p className="comments">{post.comments.length} Comments.</p>
+              {/* if comments more then 5 dont show them */}
 
-              {post.comments &&
+              {post.comments.length > 5 ? (
+                <p className="comments">
+                  <Link
+                    className="instagram-card-user-name"
+                    to={`/post/${post.id}`}
+                  >
+                    View all comments
+                  </Link>
+                </p>
+              ) : (
                 post.comments.map((comment) => (
-                  <div key={comment.id} className="userCommentsDiv">
+                  <p key={comment.id} className="comments">
                     <Link
-                      className="user-comment"
-                      to={`/profile/${comment.user.id}`}
+                      className="instagram-card-user-name"
+                      to={`/profile/${comment.userId}`}
                     >
                       {comment.user.user_name}
-                    </Link>
-
-                    <p>{comment.text} </p>
-                    <p></p>
-                  </div>
-                ))}
+                    </Link>{" "}
+                    {comment.text}
+                  </p>
+                ))
+              )}
             </div>
-
             <div className="instagram-card-footer">
               <form
                 className="comments-input"

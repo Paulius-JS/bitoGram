@@ -29,6 +29,9 @@ a:hover {
 }
 
 .instagram-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 20px;
   height: 40px;
 }
