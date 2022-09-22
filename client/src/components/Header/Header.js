@@ -47,17 +47,16 @@ const Header = () => {
         </div>
 
         <div className="searchBar">
-          <div className="form-group d-flex">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search for user..."
-              onChange={(e) => handleSearch(e)}
-              onBlur={(e) => {
-                if (e.target.value === "") setShowResults(false);
-              }}
-            />
-          </div>
+          <input
+            type="text"
+            className="SearchBarInput"
+            placeholder="Search for user..."
+            onChange={(e) => handleSearch(e)}
+            onBlur={(e) => {
+              if (e.target.value === "") setShowResults(false);
+            }}
+          />
+
           {showResults && (
             <div className="searchDropDown">
               <ul>

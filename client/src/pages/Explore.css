@@ -101,7 +101,7 @@ hr {
 .comments-input > input {
   border: 0;
   outline: none;
-  width: 90%;
+  width: 85%;
 }
 
 .comments-input > input:focus {
@@ -116,4 +116,22 @@ hr {
   cursor: pointer;
   color: #ff6c00;
   font-weight: bold;
+}
+
+/* Like button */
+
+.likes button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  overflow: hidden;
+}
+
+.likes button img {
+  margin-left: 0.5rem;
+  width: 25px;
 }

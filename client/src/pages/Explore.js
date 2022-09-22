@@ -8,12 +8,12 @@ import Hearth1 from "../resources/hearth1.svg";
 import Hearth2 from "../resources/hearth2.svg";
 
 const Explore = () => {
+  const { loggedIn, userInfo } = useContext(MainContext);
+
   const { setAlert } = useContext(MainContext);
 
   const [Posts, setPosts] = useState([]);
   const [form, setForm] = useState("");
-
-  // const [liked, setLiked] = useState(false);
 
   const [refresh, setRefresh] = useState(false);
 
@@ -38,7 +38,9 @@ const Explore = () => {
       .get("/api/posts/")
       .then((resp) => {
         setPosts(resp.data);
-        console.log(resp.data);
+
+        // if not commited infinity loop but refresh is working
+        // setRefresh(!refresh);
       })
       .catch((error) => {
         console.log(error);
@@ -82,21 +84,14 @@ const Explore = () => {
 
             <div className="instagram-card-content">
               <div className="likes">
-                {/* ///////////////////////// */}
-                <img
-                  src={Hearth1}
-                  alt="Beauty Parlor"
-                  style={{ maxWidth: "25px" }}
-                />
-                <img
-                  src={Hearth2}
-                  alt="Beauty Parlor"
-                  style={{ maxWidth: "40px" }}
-                />
-                {/* ////////////////////////////// */}
-                {post.likes.length} likes
-                <button onClick={() => handleLike(post.id)}>Like</button>
-                {/* <button onClick={() => handleLike(post.id)}>Like</button> */}
+                {post.likes.length} love this
+                <button onClick={() => handleLike(post.id)}>
+                  {post.likes.find((like) => like.userId === userInfo.id) ? (
+                    <img src={Hearth2} alt="Hearth2" />
+                  ) : (
+                    <img src={Hearth1} alt="Hearth1" />
+                  )}
+                </button>
               </div>
               <p>
                 <Link
