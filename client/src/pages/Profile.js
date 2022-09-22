@@ -17,25 +17,10 @@ const Profile = () => {
 
   useEffect(() => {
     axios.get(`/api/profile/${id}`).then((resp) => {
-      // console.log(resp.data);
+      console.log("profile", resp.data);
       setProfile(resp.data);
     });
   }, []);
-
-  useEffect(() => {
-    axios
-      .get("/api/posts/")
-      .then((resp) => {
-        console.log(resp.data);
-        setPosts(resp.data);
-
-        // if not commited infinity loop but refresh is working
-        // setRefresh(!refresh);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [setAlert, refresh]);
 
   return (
     <>
@@ -54,16 +39,10 @@ const Profile = () => {
             Profile.posts.map((post) => (
               <div key={post.id} className="profilePostCard">
                 <img src={post.image} alt="" />
-                {/* sssssssssssssssssssssssssssssssss */}
-
-                {Posts.map((post) => (
-                  <>
-                    <p>{post.likes.length} Likes</p>
-                    <p>{post.comments.length}comments</p>
-                  </>
-                ))}
-
-                {/* sssssssssssssssssssssssssssssssss */}
+                <p className="profilePostCardComments">
+                  Love: <b>{post.likes.length}</b> Comments:
+                  <b>{" " + post.comments.length}</b>
+                </p>
               </div>
             ))}
         </div>

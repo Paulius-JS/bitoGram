@@ -39,11 +39,10 @@
 }
 
 .profilePostCard {
-  /* background-color: bisque; */
   border: 1px solid grey;
   border-radius: 9px;
   margin: 0.4rem;
-  height: 21rem;
+  height: 19.5rem;
   -webkit-box-shadow: 3px 6px 15px 5px rgba(0, 0, 0, 0.17);
   box-shadow: 3px 6px 15px 5px rgba(0, 0, 0, 0.17);
 }
@@ -51,7 +50,13 @@
 .profilePosts img {
   width: 15rem;
   height: 18rem;
-  /* margin: 0.1rem; */
+
   border-radius: 9px;
   object-fit: cover;
+}
+
+.profilePostCardComments {
+  text-align: center;
+  color: grey;
+  font-size: 0.9rem;
 }

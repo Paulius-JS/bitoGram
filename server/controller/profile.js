@@ -13,6 +13,7 @@ router.get("/:id", auth, async (req, res) => {
       include: {
         model: db.Posts,
         attributes: ["id", "text", "image"],
+        include: [db.Comments, db.Likes],
       },
     });
     console.log(data);

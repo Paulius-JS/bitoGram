@@ -137,6 +137,7 @@ hr {
 }
 
 .likes button img {
+  color: #ff6c00;
   margin-left: 0.5rem;
   width: 20px;
 }
