@@ -8,14 +8,12 @@ import Hearth1 from "../resources/hearth1.svg";
 import Hearth2 from "../resources/hearth2.svg";
 
 const Explore = () => {
-  const { loggedIn, userInfo } = useContext(MainContext);
+  const { userInfo } = useContext(MainContext);
 
-  const { setAlert } = useContext(MainContext);
+  const { setRefresh, refresh } = useContext(MainContext);
 
   const [Posts, setPosts] = useState([]);
   const [form, setForm] = useState("");
-
-  const [refresh, setRefresh] = useState(false);
 
   const handleForm = (e) => {
     setForm({
@@ -38,14 +36,11 @@ const Explore = () => {
       .get("/api/posts/")
       .then((resp) => {
         setPosts(resp.data);
-
-        // if not commited infinity loop but refresh is working
-        // setRefresh(!refresh);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [setAlert, refresh]);
+  }, [refresh]);
 
   const handleLike = (postId) => {
     axios

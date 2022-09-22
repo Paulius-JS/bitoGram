@@ -1,13 +1,18 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import MainContext from "../context/MainContext";
 
 const UserPanel = () => {
+  const [Profile, setProfile] = useState({});
   const [EditProfile, setEditProfile] = useState({});
-  const { id } = useParams();
-
-  const { userInfo, setUserInfo } = useContext(MainContext);
+  const { refresh, setRefresh } = useContext(MainContext);
+  useEffect(() => {
+    axios.get(`/api/user-panel`).then((resp) => {
+      setProfile(resp.data);
+      console.log(resp.data);
+    });
+  }, [refresh]);
 
   const handleForm = (e) => {
     setEditProfile({
@@ -19,31 +24,53 @@ const UserPanel = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const formData = new FormData();
 
     for (const key in EditProfile) {
       formData.append(key, EditProfile[key]);
     }
-
-    axios.put("/api/user-panel/", formData, userInfo).then((resp) => {});
+    axios.put("/api/user-panel", formData).then((resp) => {
+      setEditProfile(resp.data);
+      setRefresh((prev) => !prev);
+    });
   };
 
   return (
-    <div className="container">
-      <h1>EDITOR</h1>
-      <form className="form-group " onSubmit={(e) => handleSubmit(e)}>
-        <input
-          type="file"
-          className="form-control mb-2 mr-sm-2"
-          name="image"
-          onChange={handleForm}
-        />
-
-        <hr />
-        <button className="btn btn btn-dark mb-2">Make New Post</button>
-      </form>
-    </div>
+    <>
+      <div className="container">
+        <div className="userWindow">
+          <div className="userImage">
+            <img src={Profile.image} alt="user" />
+          </div>
+          <div className="userInfo">
+            <h1>{Profile.user_name}</h1>
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <textarea
+                name="bio"
+                defaultValue={Profile.bio}
+                cols="40"
+                rows="10"
+                onChange={(e) => handleForm(e)}
+              />
+              <input type="file" name="image" onChange={handleForm} />
+              <button className="button-53">Update profile info</button>
+            </form>
+          </div>
+        </div>
+        <div className="profilePosts">
+          {Profile.posts &&
+            Profile.posts.map((post) => (
+              <div key={post.id} className="profilePostCard">
+                <img src={post.image} alt="" />
+                <p className="profilePostCardComments">
+                  Love: <b>{post.likes.length}</b> Comments:
+                  <b>{" " + post.comments.length}</b>
+                </p>
+              </div>
+            ))}
+        </div>
+      </div>
+    </>
   );
 };
 

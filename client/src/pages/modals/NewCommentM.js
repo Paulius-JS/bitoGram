@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import MainContext from "../../context/MainContext";
 
 import "./NewCommentM.css";
 
 export const NewCommentM = ({ open, onClose }) => {
   const [NewPost, setNewPost] = useState({});
   const [prevImg, setPrevImg] = useState(null);
+  const { setRefresh } = useContext(MainContext);
 
   const handleForm = (e) => {
     setNewPost({
@@ -13,7 +15,8 @@ export const NewCommentM = ({ open, onClose }) => {
       [e.target.name]:
         e.target.name === "image" ? e.target.files[0] : e.target.value,
     });
-    setPrevImg(URL.createObjectURL(e.target.files[0]));
+    if (e.target.name === "image")
+      setPrevImg(URL.createObjectURL(e.target.files[0]));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ export const NewCommentM = ({ open, onClose }) => {
     }
 
     axios.post("/api/posts/new", formData).then((resp) => {
+      setRefresh((prev) => !prev);
       onClose();
     });
   };
@@ -47,7 +51,6 @@ export const NewCommentM = ({ open, onClose }) => {
               <input type="file" name="image" onChange={handleForm} />
               <textarea
                 name="text"
-                id=""
                 cols="30"
                 rows="7"
                 onChange={handleForm}

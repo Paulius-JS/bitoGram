@@ -20,8 +20,16 @@ import "./App.css";
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
-  const contextValues = { loggedIn, setLoggedIn, userInfo, setUserInfo };
+  const contextValues = {
+    loggedIn,
+    setLoggedIn,
+    userInfo,
+    setUserInfo,
+    refresh,
+    setRefresh,
+  };
 
   useEffect(() => {
     axios.get("/api/check-auth/").then((resp) => {

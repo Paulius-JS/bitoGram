@@ -3,24 +3,19 @@ import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import MainContext from "../context/MainContext";
-
 import "./Profile.css";
 
 const Profile = () => {
   const { id } = useParams();
 
   const [Profile, setProfile] = useState({});
-
-  const { setAlert } = useContext(MainContext);
-  const [refresh, setRefresh] = useState(false);
-  const [Posts, setPosts] = useState([]);
+  const { refresh } = useContext(MainContext);
 
   useEffect(() => {
     axios.get(`/api/profile/${id}`).then((resp) => {
-      console.log("profile", resp.data);
       setProfile(resp.data);
     });
-  }, []);
+  }, [id, refresh]);
 
   return (
     <>

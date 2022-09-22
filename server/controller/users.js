@@ -88,16 +88,39 @@ router.get("/check-auth", auth, async (req, res) => {
   res.json(req.session.user);
 });
 
+router.get("/user-panel/", auth, async (req, res) => {
+  try {
+    const user = await db.Users.findOne({
+      where: {
+        id: req.session.user.id,
+      },
+      attributes: ["id", "user_name", "image", "bio"],
+      include: [
+        {
+          model: db.Posts,
+          attributes: ["id", "text", "image"],
+          include: [db.Comments, db.Likes],
+        },
+      ],
+    });
+
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(418).send("server error");
+  }
+});
+
 router.put("/user-panel", auth, upload.single("image"), async (req, res) => {
   try {
     if (req.file) req.body.image = "/uploads/" + req.file.filename;
     const post = await db.Users.findByPk(req.session.user.id);
     post.update(req.body);
 
-    res.send("Įrašas sėkmingai atnaujintas");
+    res.send("successfully updated");
   } catch (error) {
     console.log(error);
-    res.status(500).send("Įvyko serverio klaida");
+    res.status(500).send("server error");
   }
 });
 

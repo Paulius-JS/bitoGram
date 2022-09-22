@@ -11,12 +11,6 @@ const validate = (schema, req, res, next) => {
 
   if (error) {
     switch (error.details[0].path[0]) {
-      case "first_name":
-        message = "Neteisingai nurodytas vardas";
-        break;
-      case "last_name":
-        message = "Neteisingai nurodyta pavardė";
-        break;
       case "email":
         message = "Neteisingai nurodytas el. pašto adresas";
         break;

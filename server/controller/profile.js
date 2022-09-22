@@ -16,7 +16,7 @@ router.get("/:id", auth, async (req, res) => {
         include: [db.Comments, db.Likes],
       },
     });
-    console.log(data);
+
     res.json(data);
   } catch (error) {
     console.log(error);

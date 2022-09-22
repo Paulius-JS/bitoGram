@@ -10,7 +10,9 @@
 
 .userImage img {
   width: 15rem;
+  height: 21rem;
   border-radius: 9px;
+  object-fit: cover;
 }
 
 .userInfo {
@@ -30,12 +32,12 @@
 
 .profilePosts {
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  width: 50%;
+  width: 64rem;
 }
 
 .profilePostCard {
@@ -59,4 +61,16 @@
   text-align: center;
   color: grey;
   font-size: 0.9rem;
+}
+
+/* User-Panel Css goes here cuz its same as this */
+
+.userInfo form {
+  width: 27.8rem;
+}
+
+.userInfo form textarea {
+  margin-top: 1rem;
+  resize: none;
+  border-radius: 9px;
 }
